@@ -33,6 +33,12 @@ class TransferListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Transfer.objects.filter(user=self.request.user)
 
+    def get_context_data(self, **kwargs):
+        context = super(TransferListView, self).get_context_data(**kwargs)
+        context['income_list'] = Transfer.objects.filter(user=self.request.user, incoming=True)
+        context['expense_list'] =  Transfer.objects.filter(user=self.request.user, incoming=False)
+        return context
+
 class ExpenseCreateView(LoginRequiredMixin, FormValidMessageMixin, UserFormKwargsMixin, CreateView):
     form_class = ExpenseCreateForm    
     model = Transfer
