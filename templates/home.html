@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block home %}active{% endblock home %}
+
+{% block content %}
+
+<h3>Account balance: {{account_balance}}</h3>
+    {% for transfer in latest_transfers %}
+        {% if forloop.first %}
+        <h3>Last 5 transfers</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr><th>Date</th><th>Description</th><th>Amount</th></tr>
+            </thead>
+            <tbody>
+        {% endif %}
+                <tr>
+                    <td>{{transfer.date_added}}</td>
+                    <td>{{transfer.description}}</td>
+                    <td>{{transfer.get_absolute_amount}}</td>
+                </tr>
+        {% if forloop.last %}
+            </tbody>
+        </table>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}
