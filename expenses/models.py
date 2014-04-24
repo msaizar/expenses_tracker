@@ -1,13 +1,14 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+import datetime
 
 # Create your models here.
 
 class Transfer(models.Model):
     description = models.CharField(blank=True, max_length=100)
     amount = models.FloatField(default=0)
-    date_added = models.DateTimeField(auto_now_add=True)    
+    date_added = models.DateTimeField()    
     incoming = models.BooleanField(default=True)
     user = models.ForeignKey(User)
     
